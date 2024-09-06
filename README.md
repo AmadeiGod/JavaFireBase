@@ -1,4 +1,4 @@
-# javaMid
+# java
 Тестовое задание
 
 Endpoint`s
