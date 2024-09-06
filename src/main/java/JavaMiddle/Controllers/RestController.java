@@ -1,57 +1,43 @@
 package JavaMiddle.Controllers;
 
-import JavaMiddle.Dto.RegPeople;
-import JavaMiddle.Models.People;
-import JavaMiddle.Services.PeopleServiceImpl;
+
+import JavaMiddle.Models.Book;
+import JavaMiddle.Services.BookServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
-import static JavaMiddle.Mapping.PeopleMap.regPeopleToPeople;
 
 // Все endpoint`s
 @CrossOrigin
 @org.springframework.web.bind.annotation.RestController
-@RequestMapping("/people")
+@RequestMapping("/book")
 public class RestController {
     @Autowired
-    public PeopleServiceImpl peopleService;
-    // Получения клиента по id
-    @GetMapping("/{id}")
-    public ResponseEntity<People> getPeople(@PathVariable("id") long id){
-        return ResponseEntity.ok(peopleService.get(id));
+    public BookServiceImpl bookService;
+    // Получения книги по id
+    @GetMapping("/{name}")
+    public Book getBook(@PathVariable("name") String name) throws ExecutionException, InterruptedException {
+        return bookService.get(name);
     }
-    // Добавление клиента
-    @GetMapping("/add")
-    public ResponseEntity<People> addPeople( @RequestBody RegPeople regPeople) {
-        return ResponseEntity.ok(peopleService.addPeople(regPeopleToPeople(regPeople)));
+    // Добавление книги
+    @PostMapping("/add")
+    public String addPeople( @RequestBody Book book) throws ExecutionException, InterruptedException {
+        return bookService.save(book);
     }
-    // Добавление нового номера клиенту
-    @RequestMapping(value = "{id}/addNumber/{number}", method = {RequestMethod.GET, RequestMethod.POST})
-    public ResponseEntity<People> addNumber(@PathVariable("id") long id, @PathVariable("number") String number){
-        return ResponseEntity.ok(peopleService.addNumber(id, number));
+    // Удаление книги по id
+    @GetMapping("/delete/{name}")
+    public String delete(@PathVariable("name") String name) throws ExecutionException, InterruptedException {
+        return bookService.delete(name);
     }
-    // Добавление нового email клиенту
-    @RequestMapping(value = "{id}/addEmail/{number}", method = {RequestMethod.GET, RequestMethod.POST})
-    public ResponseEntity<People> addEmail(@PathVariable("id") long id, @PathVariable("email") String email){
-        return ResponseEntity.ok(peopleService.addNumber(id, email));
-    }
-    // Список всех клиентов
+    // Список всех книг
     @GetMapping("/getAll")
-    public ResponseEntity<List<RegPeople>> getAll(){
-        return ResponseEntity.ok(peopleService.getAll());
+    public List<Book> getAll() throws ExecutionException, InterruptedException {
+        return bookService.getAll();
     }
-    // Список всех номеров клиента по id
-    @GetMapping("{id}/getNumbers")
-    public ResponseEntity<List<String>> getNumbers(@PathVariable("id") long id){
-        return ResponseEntity.ok(peopleService.getNumbers(id));
-    }
-    // Список всех email`s клиента по id
-    @GetMapping("{id}/getEmails")
-    public ResponseEntity<List<String>> getEmails(@PathVariable("id") long id){
-        return ResponseEntity.ok(peopleService.getEmails(id));
-    }
+
 
 }
