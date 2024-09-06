@@ -3,7 +3,7 @@
 
 Endpoint`s
 
-url: book/{name]
+url: book/{id]
 Описание: Получение книги по id
 
 url:  book/getAll
@@ -12,7 +12,7 @@ url:  book/getAll
 url:  book/add
 Описание: Добавление книги
 
-url:  book/delete/{name}
+url:  book/delete/{id}
 Описание: Удаление книги по id
 
 

@@ -19,9 +19,9 @@ public class RestController {
     @Autowired
     public BookServiceImpl bookService;
     // Получения книги по id
-    @GetMapping("/{name}")
-    public Book getBook(@PathVariable("name") String name) throws ExecutionException, InterruptedException {
-        return bookService.get(name);
+    @GetMapping("/{id}")
+    public Book getBook(@PathVariable("id") String id) throws ExecutionException, InterruptedException {
+        return bookService.get(id);
     }
     // Добавление книги
     @PostMapping("/add")
@@ -29,9 +29,9 @@ public class RestController {
         return bookService.save(book);
     }
     // Удаление книги по id
-    @GetMapping("/delete/{name}")
-    public String delete(@PathVariable("name") String name) throws ExecutionException, InterruptedException {
-        return bookService.delete(name);
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") String id) throws ExecutionException, InterruptedException {
+        return bookService.delete(id);
     }
     // Список всех книг
     @GetMapping("/getAll")

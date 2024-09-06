@@ -30,11 +30,11 @@ public class BookServiceImpl {
 
         return apiFuture.get().toString();
     }
-    public Book get(String name) throws ExecutionException, InterruptedException {
+    public Book get(String id) throws ExecutionException, InterruptedException {
 
         Firestore firestore = FirestoreClient.getFirestore();
 
-        DocumentReference documentReference = firestore.collection(COLLECTION_NAME).document(name);
+        DocumentReference documentReference = firestore.collection(COLLECTION_NAME).document(id);
 
         ApiFuture<DocumentSnapshot> documentSnapshotApiFuture = documentReference.get();
 
@@ -45,13 +45,13 @@ public class BookServiceImpl {
         }
         return null;
     }
-    public String delete(String name) throws ExecutionException, InterruptedException {
+    public String delete(String id) throws ExecutionException, InterruptedException {
 
         Firestore firestore = FirestoreClient.getFirestore();
 
-        ApiFuture<WriteResult> apiFuture = firestore.collection(COLLECTION_NAME).document(name).delete();
+        ApiFuture<WriteResult> apiFuture = firestore.collection(COLLECTION_NAME).document(id).delete();
 
-        return "Книга удалена : " + name;
+        return "Книга удалена : " + id;
     }
     public List<Book> getAll() throws ExecutionException, InterruptedException {
         Firestore firestore = FirestoreClient.getFirestore();
